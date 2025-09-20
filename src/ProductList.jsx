@@ -266,6 +266,11 @@ function ProductList({ onHomeClick }) {
         }));
     };
 
+    const isAdded = (productName) => {
+        console.log(productName, addedToCart[productName]);
+        return !!addedToCart[productName];
+    }
+
     return (
         <div>
             <div className="navbar" style={styleObj}>
@@ -306,10 +311,11 @@ function ProductList({ onHomeClick }) {
                                         <div className="product-description">{plant.description}</div> {/* Display plant description */}
                                         <div className="product-cost">${plant.cost}</div> {/* Display plant cost */}
                                         <button
-                                            className="product-button"
-                                            onClick={() => handleAddToCart(plant)} // Handle adding plant to cart
+                                            className={isAdded(plant.name) ? "product-button added-to-cart" : "product-button"}
+                                            onClick={() => handleAddToCart(plant)} // Handle adding plant to cart  
+                                            disabled={isAdded(plant.name)} // Disable button if the plant is already added to the cart
                                         >
-                                            Add to Cart
+                                            {isAdded(plant.name) ? "Added to Cart" : "Add to Cart"}
                                         </button>
                                     </div>
                                 ))}
